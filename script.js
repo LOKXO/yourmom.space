@@ -2,9 +2,9 @@
 gsap.registerPlugin(ScrollTrigger);
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Vanta.js background
+    // Space background
     VANTA.NET({
-        el: "#vanta-background",
+        el: "#space-background",
         mouseControls: true,
         touchControls: true,
         gyroControls: false,
@@ -13,15 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
         scale: 1.00,
         scaleMobile: 1.00,
         color: 0x3fffe,
-        backgroundColor: 0xa0a,
+        backgroundColor: 0x0a0a0a,
         points: 20.00,
         maxDistance: 30.00,
         spacing: 20.00
     });
-
-    // Parallax effect
-    const scene = document.getElementById('scene');
-    const parallaxInstance = new Parallax(scene);
 
     // Custom cursor
     const cursor = document.querySelector('.cursor');
@@ -153,10 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // TagCloud for skills
     const container = '.tagcloud';
     const texts = [
-        'Quantum Computing', 'Neural Architecture', 'Blockchain', 'AR/VR', 'AI',
+        'Stellar Computing', 'Neural Architecture', 'Galactic Networks', 'AR/VR', 'AI',
         'Rust', 'Go', 'Python', 'WebAssembly', 'Solidity',
-        'TensorFlow', 'Unreal Engine', 'Ethereum', 'Kubernetes', 'GraphQL',
-        'Quantum Algorithms', 'Parallel Universes', 'Time Manipulation', 'Reality Warping', 'Dimensional Traversal'
+        'TensorFlow', 'Unreal Engine', 'Cosmic Chains', 'Kubernetes', 'GraphQL',
+        'Stellar Algorithms', 'Parallel Realities', 'Time Dilation', 'Reality Augmentation', 'Dimensional Engineering'
     ];
 
     const options = {
@@ -169,65 +165,138 @@ document.addEventListener('DOMContentLoaded', () => {
 
     TagCloud(container, texts, options);
 
-    // Quantum field animation
-    const quantumFields = document.querySelectorAll('.quantum-field');
-    quantumFields.forEach(field => {
+    // Cosmic field animation
+    const cosmicFields = document.querySelectorAll('.cosmic-field');
+    cosmicFields.forEach(field => {
         gsap.to(field, {
             rotation: 360,
-            duration: 10,
+            duration: 20,
             repeat: -1,
             ease: 'none'
         });
     });
 
-    // Glitch effect on hover for project cards
+    // Space warp effect on hover for project cards
     const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach(card => {
         card.addEventListener('mouseenter', () => {
             gsap.to(card, {
-                skewX: 2,
-                skewY: 2,
-                duration: 0.1,
-                repeat: 5,
-                yoyo: true
+                scale: 1.05,
+                boxShadow: '0 0 20px rgba(255, 0, 255, 0.5)',
+                duration: 0.3
+            });
+        });
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, {
+                scale: 1,
+                boxShadow: '0 0 0 rgba(255, 0, 255, 0)',
+                duration: 0.3
             });
         });
     });
 
-    // Particle system for the contact form
+    // Starfield background for the contact form
     const canvas = document.createElement('canvas');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     document.getElementById('contact').appendChild(canvas);
     const ctx = canvas.getContext('2d');
 
-    const particles = [];
-    for (let i = 0; i < 50; i++) {
-        particles.push({
+    const stars = [];
+    for (let i = 0; i < 200; i++) {
+        stars.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
-            radius: Math.random() * 2 + 1,
-            dx: (Math.random() - 0.5) * 2,
-            dy: (Math.random() - 0.5) * 2
+            radius: Math.random() * 1.5,
+            vx: Math.floor(Math.random() * 50) - 25,
+            vy: Math.floor(Math.random() * 50) - 25
         });
     }
 
-    function drawParticles() {
+    function drawStars() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-        particles.forEach(particle => {
+        ctx.globalCompositeOperation = "lighter";
+
+        for (let i = 0, x = stars.length; i < x; i++) {
+            let s = stars[i];
+
+            ctx.fillStyle = "#fff";
             ctx.beginPath();
-            ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+            ctx.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
             ctx.fill();
+            ctx.fillStyle = 'black';
+            ctx.stroke();
+        }
 
-            particle.x += particle.dx;
-            particle.y += particle.dy;
-
-            if (particle.x < 0 || particle.x > canvas.width) particle.dx *= -1;
-            if (particle.y < 0 || particle.y > canvas.height) particle.dy *= -1;
-        });
-        requestAnimationFrame(drawParticles);
+        ctx.beginPath();
+        for (let i = 0, x = stars.length; i < x; i++) {
+            let starI = stars[i];
+            ctx.moveTo(starI.x,starI.y); 
+            if(distance(mouse, starI) < 150) ctx.lineTo(mouse.x, mouse.y);
+            for (let j = 0, y = stars.length; j < y; j++) {
+                let starII = stars[j];
+                if(distance(starI, starII) < 150) {
+                    ctx.lineTo(starII.x,starII.y); 
+                }
+            }
+        }
+        ctx.lineWidth = 0.05;
+        ctx.strokeStyle = 'white';
+        ctx.stroke();
     }
 
-    drawParticles();
+    function distance( point1, point2 ){
+        let xs = 0;
+        let ys = 0;
+
+        xs = point2.x - point1.x;
+        xs = xs * xs;
+
+        ys = point2.y - point1.y;
+        ys = ys * ys;
+
+        return Math.sqrt( xs + ys );
+    }
+
+    // Update star locations
+    function update() {
+        for (let i = 0, x = stars.length; i < x; i++) {
+            let s = stars[i];
+
+            s.x += s.vx / 30;
+            s.y += s.vy / 30;
+
+            if (s.x < 0 || s.x > canvas.width) s.vx = -s.vx;
+            if (s.y < 0 || s.y > canvas.height) s.vy = -s.vy;
+        }
+    }
+
+    // Mouse movement
+    let mouse = {
+        x: 0,
+        y: 0
+    };
+
+    function handleMouseMove(event) {
+        mouse.x = event.clientX || event.touches[0].clientX;
+        mouse.y = event.clientY || event.touches[0].clientY;
+    }
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('touchmove', handleMouseMove);
+
+    // Update canvas size on window resize
+    window.addEventListener('resize', function() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+
+    // Animation loop
+    function animate() {
+        update();
+        drawStars();
+        requestAnimationFrame(animate);
+    }
+
+    animate();
 });

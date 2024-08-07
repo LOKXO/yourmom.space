@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
 
 :root {
     --primary-color: #00ffff;
@@ -7,7 +7,7 @@
     --background-color: #0a0a0a;
     --text-color: #ffffff;
     --font-primary: 'Orbitron', sans-serif;
-    --font-secondary: 'Roboto Mono', monospace;
+    --font-secondary: 'Space Mono', monospace;
 }
 
 * {
@@ -24,7 +24,7 @@ body {
     cursor: none;
 }
 
-#vanta-background {
+#space-background {
     position: fixed;
     top: 0;
     left: 0;
@@ -141,7 +141,7 @@ nav ul li {
     background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--tertiary-color));
 }
 
-.parallax-container {
+.cosmic-container {
     position: relative;
     width: 100%;
     height: 100%;
@@ -259,7 +259,7 @@ h1 {
     box-shadow: 0 0 20px var(--primary-color);
 }
 
-.quantum-field {
+.cosmic-field {
     position: absolute;
     top: -10px;
     left: -10px;
@@ -267,10 +267,10 @@ h1 {
     bottom: -10px;
     border: 2px solid var(--secondary-color);
     border-radius: 50%;
-    animation: quantum-rotation 10s linear infinite;
+    animation: cosmic-rotation 10s linear infinite;
 }
 
-@keyframes quantum-rotation {
+@keyframes cosmic-rotation {
     0% {
         transform: rotate(0deg);
     }
@@ -427,12 +427,12 @@ footer {
     color: var(--primary-color);
 }
 
-.quantum-link {
+.cosmic-link {
     position: relative;
     display: inline-block;
 }
 
-.quantum-link::before {
+.cosmic-link::before {
     content: '';
     position: absolute;
     top: -5px;
@@ -445,7 +445,7 @@ footer {
     transition: transform 0.3s ease;
 }
 
-.quantum-link:hover::before {
+.cosmic-link:hover::before {
     transform: scale(1);
 }
 
